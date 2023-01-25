@@ -7,13 +7,14 @@
 
 #include "Shader_Loader.h"
 #include "Render_Utils.h"
-//#include "Texture.h"
+#include "Texture.h"
 
 #include "Box.cpp"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <string>
+#include "SOIL/SOIL.h"
 
 const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
 
@@ -39,6 +40,10 @@ namespace models {
 	Core::RenderContext starContext;
 }
 
+namespace texture {
+	GLuint cubemapTexture;
+}
+
 GLuint depthMapFBO;
 GLuint depthMap;
 
@@ -46,11 +51,13 @@ GLuint program;
 GLuint programSun;
 GLuint programTest;
 GLuint programTex;
+GLuint programSkybox;
 
 Core::Shader_Loader shaderLoader;
 
 Core::RenderContext shipContext;
 Core::RenderContext sphereContext;
+Core::RenderContext skyboxContext;
 
 glm::vec3 sunPos = glm::vec3(-4.740971f, 2.149999f, 0.369280f);
 glm::vec3 sunDir = glm::vec3(-0.93633f, 0.351106, 0.003226f);
@@ -265,6 +272,46 @@ void runLights(int lightningMode, float time) {
 	}
 }
 
+void loadCubemap(char* textures[]) {
+	glGenTextures(1, &texture::cubemapTexture);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, texture::cubemapTexture);
+
+	int w, h;
+	unsigned char* data{};
+	for (unsigned int i = 0; i < 6; i++)
+	{
+		data = SOIL_load_image(textures[i], &w, &h, 0, SOIL_LOAD_RGBA);
+		glTexImage2D(
+			GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
+			0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, data
+		);
+	}
+
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+}
+
+void drawSkybox(glm::mat4 modelMatrix) {
+	glDisable(GL_DEPTH_TEST);
+
+	glUseProgram(programSkybox);
+
+	glm::mat4 viewProjectionMatrix = createPerspectiveMatrix() * createCameraMatrix();
+	glm::mat4 transformation = viewProjectionMatrix * modelMatrix;
+
+	glUniformMatrix4fv(glGetUniformLocation(programSkybox, "transformation"), 1, GL_FALSE, (float*)&transformation);
+	Core::SetActiveTexture(texture::cubemapTexture, "skybox", programSkybox, 0);
+
+	Core::DrawContext(skyboxContext);
+
+	glEnable(GL_DEPTH_TEST);
+}
+
+
+
 
 void renderScene(GLFWwindow* window)
 {
@@ -274,6 +321,7 @@ void renderScene(GLFWwindow* window)
 	intTime += 1;
 	updateDeltaTime(time);
 	renderShadowapSun();
+	drawSkybox(glm::translate(cameraPos));
 
 	//space lamp
 	glUseProgram(programSun);
@@ -386,9 +434,11 @@ void init(GLFWwindow* window)
 	program = shaderLoader.CreateProgram("shaders/shader_9_1.vert", "shaders/shader_9_1.frag");
 	programTest = shaderLoader.CreateProgram("shaders/test.vert", "shaders/test.frag");
 	programSun = shaderLoader.CreateProgram("shaders/shader_8_sun.vert", "shaders/shader_8_sun.frag");
+	programSkybox = shaderLoader.CreateProgram("shaders/shader_skybox-1.vert", "shaders/shader_skybox-1.frag");
 
 	loadModelToContext("./models/sphere.obj", sphereContext);
 	loadModelToContext("./models/spaceship.obj", shipContext);
+	loadModelToContext("./models/cube.obj", skyboxContext);
 
 
 	loadModelToContext("./models/bed.obj", models::bedContext);
@@ -408,6 +458,10 @@ void init(GLFWwindow* window)
 	loadModelToContext("./models/lowpolytree.obj", models::treeContext);
 	loadModelToContext("./models/lowpolytrunk.obj", models::treeTrunkContext);
 	loadModelToContext("./models/christmas.fbx", models::starContext);
+	loadModelToContext("./models/cube.obj", skyboxContext);
+
+	char* textures[] = { "textures/skybox/sh_ft.png", "textures/skybox/sh_bk.png", "textures/skybox/sh_up.png", "textures/skybox/sh_dn.png", "textures/skybox/sh_rt.png", "textures/skybox/sh_lf.png" };
+	loadCubemap(textures);
 }
 
 void shutdown(GLFWwindow* window)
