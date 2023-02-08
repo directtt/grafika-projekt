@@ -115,5 +115,11 @@
     <None Include="F:\Pobrane\grafika-projekt-main\grafika-projekt-main\cw 9\shaders\shader_skybox-1.vert">
       <Filter>Shader Files</Filter>
     </None>
+    <None Include="shaders\shader_tex.frag">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="shaders\shader_tex.vert">
+      <Filter>Shader Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

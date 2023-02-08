@@ -1,65 +1,66 @@
 ﻿  main.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130,1): warning C4005: "APIENTRY": ponowna definicja makra
-C:\Users\szymo\OneDrive\Dokumenty\GitHub\grafika-projekt\dependencies\glfw-3.3.8.bin.WIN32\include\GLFW\glfw3.h(123): message : zobacz poprzednią definicję „APIENTRY”
-C:\Users\szymo\OneDrive\Dokumenty\GitHub\grafika-projekt\cw 9\src\ex_9_1.hpp(132,30): warning C4305: "inicjowanie": obcięcie z "double" do "float"
-C:\Users\szymo\OneDrive\Dokumenty\GitHub\grafika-projekt\cw 9\src\ex_9_1.hpp(145,38): warning C4305: "=": obcięcie z "double" do "float"
-C:\Users\szymo\OneDrive\Dokumenty\GitHub\grafika-projekt\cw 9\src\ex_9_1.hpp(168,16): warning C4305: "inicjowanie": obcięcie z "double" do "float"
-C:\Users\szymo\OneDrive\Dokumenty\GitHub\grafika-projekt\cw 9\src\ex_9_1.hpp(216,13): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
-C:\Users\szymo\OneDrive\Dokumenty\GitHub\grafika-projekt\cw 9\src\ex_9_1.hpp(320,13): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
-C:\Users\szymo\OneDrive\Dokumenty\GitHub\grafika-projekt\cw 9\src\ex_9_1.hpp(329,108): warning C4305: "argument": obcięcie z "double" do "T"
+C:\uczelnia\grafika-projekt-git\dependencies\glfw-3.3.8.bin.WIN32\include\GLFW\glfw3.h(123): message : zobacz poprzednią definicję „APIENTRY”
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(137,30): warning C4305: "inicjowanie": obcięcie z "double" do "float"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(150,38): warning C4305: "=": obcięcie z "double" do "float"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(173,16): warning C4305: "inicjowanie": obcięcie z "double" do "float"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(281,13): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(385,13): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(394,108): warning C4305: "argument": obcięcie z "double" do "T"
           with
           [
               T=float
           ]
-C:\Users\szymo\OneDrive\Dokumenty\GitHub\grafika-projekt\cw 9\src\ex_9_1.hpp(337,87): warning C4305: "argument": obcięcie z "double" do "T"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(402,87): warning C4305: "argument": obcięcie z "double" do "T"
           with
           [
               T=float
           ]
-C:\Users\szymo\OneDrive\Dokumenty\GitHub\grafika-projekt\cw 9\src\ex_9_1.hpp(337,223): warning C4305: "argument": obcięcie z "double" do "float"
-C:\Users\szymo\OneDrive\Dokumenty\GitHub\grafika-projekt\cw 9\src\ex_9_1.hpp(340,59): warning C4305: "argument": obcięcie z "double" do "T"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(402,223): warning C4305: "argument": obcięcie z "double" do "float"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(405,59): warning C4305: "argument": obcięcie z "double" do "T"
           with
           [
               T=float
           ]
-C:\Users\szymo\OneDrive\Dokumenty\GitHub\grafika-projekt\cw 9\src\ex_9_1.hpp(341,37): warning C4305: "argument": obcięcie z "double" do "float"
-C:\Users\szymo\OneDrive\Dokumenty\GitHub\grafika-projekt\cw 9\src\ex_9_1.hpp(360,96): warning C4305: "argument": obcięcie z "double" do "T"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(406,37): warning C4305: "argument": obcięcie z "double" do "float"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(439,96): warning C4305: "argument": obcięcie z "double" do "T"
           with
           [
               T=float
           ]
-C:\Users\szymo\OneDrive\Dokumenty\GitHub\grafika-projekt\cw 9\src\ex_9_1.hpp(361,96): warning C4305: "argument": obcięcie z "double" do "T"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(440,96): warning C4305: "argument": obcięcie z "double" do "T"
           with
           [
               T=float
           ]
-C:\Users\szymo\OneDrive\Dokumenty\GitHub\grafika-projekt\cw 9\src\ex_9_1.hpp(362,96): warning C4305: "argument": obcięcie z "double" do "T"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(441,96): warning C4305: "argument": obcięcie z "double" do "T"
           with
           [
               T=float
           ]
-C:\Users\szymo\OneDrive\Dokumenty\GitHub\grafika-projekt\cw 9\src\ex_9_1.hpp(363,96): warning C4305: "argument": obcięcie z "double" do "T"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(442,96): warning C4305: "argument": obcięcie z "double" do "T"
           with
           [
               T=float
           ]
-C:\Users\szymo\OneDrive\Dokumenty\GitHub\grafika-projekt\cw 9\src\ex_9_1.hpp(364,96): warning C4305: "argument": obcięcie z "double" do "T"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(443,96): warning C4305: "argument": obcięcie z "double" do "T"
           with
           [
               T=float
           ]
-C:\Users\szymo\OneDrive\Dokumenty\GitHub\grafika-projekt\cw 9\src\ex_9_1.hpp(365,96): warning C4305: "argument": obcięcie z "double" do "T"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(444,96): warning C4305: "argument": obcięcie z "double" do "T"
           with
           [
               T=float
           ]
-C:\Users\szymo\OneDrive\Dokumenty\GitHub\grafika-projekt\cw 9\src\ex_9_1.hpp(368,115): warning C4305: "argument": obcięcie z "double" do "T"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(447,115): warning C4305: "argument": obcięcie z "double" do "T"
           with
           [
               T=float
           ]
-C:\Users\szymo\OneDrive\Dokumenty\GitHub\grafika-projekt\cw 9\src\ex_9_1.hpp(511,21): warning C4305: "-=": obcięcie z "double" do "float"
-C:\Users\szymo\OneDrive\Dokumenty\GitHub\grafika-projekt\cw 9\src\ex_9_1.hpp(513,21): warning C4305: "+=": obcięcie z "double" do "float"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(476,2): warning C4305: "argument": obcięcie z "double" do "float"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(596,21): warning C4305: "-=": obcięcie z "double" do "float"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(598,21): warning C4305: "+=": obcięcie z "double" do "float"
 Box.obj : warning LNK4075: zignorowano opcję „/EDITANDCONTINUE” z powodu określenia opcji „/INCREMENTAL:NO”
 LINK : warning LNK4098: domyślna biblioteka „MSVCRT” powoduje konflikt z innymi bibliotekami; użyj opcji /NODEFAULTLIB:biblioteka
-  grk-cw9.vcxproj -> C:\Users\szymo\OneDrive\Dokumenty\GitHub\grafika-projekt\Debug\grk-cw9.exe
+  grk-cw9.vcxproj -> C:\uczelnia\grafika-projekt-git\Debug\grk-cw9.exe

@@ -1,0 +1,3 @@
+C:/uczelnia/grafika-projekt-git/dependencies/glm/out/build/x64-Debug/CMakeFiles/glm_dummy.dir
+C:/uczelnia/grafika-projekt-git/dependencies/glm/out/build/x64-Debug/CMakeFiles/edit_cache.dir
+C:/uczelnia/grafika-projekt-git/dependencies/glm/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
