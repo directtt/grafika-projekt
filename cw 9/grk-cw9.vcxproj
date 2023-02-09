@@ -45,6 +45,8 @@
     <None Include="shaders\shader_8_sun.vert" />
     <None Include="shaders\shader_tex.frag" />
     <None Include="shaders\shader_tex.vert" />
+    <None Include="shaders\shader_tex_normal.frag" />
+    <None Include="shaders\shader_tex_normal.vert" />
     <None Include="shaders\test.frag" />
     <None Include="shaders\test.vert" />
   </ItemGroup>

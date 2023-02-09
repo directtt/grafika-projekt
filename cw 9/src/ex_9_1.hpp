@@ -39,6 +39,13 @@ namespace models {
 	Core::RenderContext treeTrunkContext;
 	Core::RenderContext starContext;
 	Core::RenderContext table2Context;
+	Core::RenderContext christmasPresent;
+	Core::RenderContext christmasPresent2;
+	Core::RenderContext christmasPresent3;
+	Core::RenderContext christmasPresent4;
+	Core::RenderContext monitor;
+	Core::RenderContext keyboard;
+	Core::RenderContext computerMouse;
 }
 
 namespace texture {
@@ -46,6 +53,17 @@ namespace texture {
 	GLuint earth;
 	GLuint tableWood;
 	GLuint sleigh;
+	GLuint present;
+	GLuint present2;
+	GLuint present3;
+	GLuint present4;
+	GLuint monitor;
+	GLuint keyboard;
+}
+
+namespace normals {
+	GLuint normal_present2;
+	GLuint normal_present3;
 }
 
 GLuint depthMapFBO;
@@ -55,6 +73,7 @@ GLuint program;
 GLuint programSun;
 GLuint programTest;
 GLuint programTex;
+GLuint programTexNormal;
 GLuint programSkybox;
 
 Core::Shader_Loader shaderLoader;
@@ -242,36 +261,76 @@ void drawObjectPBRTexture(Core::RenderContext& context, glm::mat4 modelMatrix, G
 
 	glm::mat4 viewProjectionMatrix = createPerspectiveMatrix() * createCameraMatrix();
 	glm::mat4 transformation = viewProjectionMatrix * modelMatrix;
-	glUniformMatrix4fv(glGetUniformLocation(program, "transformation"), 1, GL_FALSE, (float*)&transformation);
-	glUniformMatrix4fv(glGetUniformLocation(program, "modelMatrix"), 1, GL_FALSE, (float*)&modelMatrix);
+	glUniformMatrix4fv(glGetUniformLocation(programTex, "transformation"), 1, GL_FALSE, (float*)&transformation);
+	glUniformMatrix4fv(glGetUniformLocation(programTex, "modelMatrix"), 1, GL_FALSE, (float*)&modelMatrix);
 
-	glUniform1f(glGetUniformLocation(program, "exposition"), exposition);
+	glUniform1f(glGetUniformLocation(programTex, "exposition"), exposition);
 
-	glUniform1f(glGetUniformLocation(program, "roughness"), roughness);
-	glUniform1f(glGetUniformLocation(program, "metallic"), metallic);
+	glUniform1f(glGetUniformLocation(programTex, "roughness"), roughness);
+	glUniform1f(glGetUniformLocation(programTex, "metallic"), metallic);
 
 	Core::SetActiveTexture(texture, "colorTexture", programTex, 2);
 	// glUniform3f(glGetUniformLocation(program, "color"), color.x, color.y, color.z);
 
-	glUniform3f(glGetUniformLocation(program, "cameraPos"), cameraPos.x, cameraPos.y, cameraPos.z);
+	glUniform3f(glGetUniformLocation(programTex, "cameraPos"), cameraPos.x, cameraPos.y, cameraPos.z);
 
-	glUniform3f(glGetUniformLocation(program, "sunDir"), sunDir.x, sunDir.y, sunDir.z);
-	glUniform3f(glGetUniformLocation(program, "sunColor"), sunColor.x, sunColor.y, sunColor.z);
+	glUniform3f(glGetUniformLocation(programTex, "sunDir"), sunDir.x, sunDir.y, sunDir.z);
+	glUniform3f(glGetUniformLocation(programTex, "sunColor"), sunColor.x, sunColor.y, sunColor.z);
 
-	glUniform3fv(glGetUniformLocation(program, "lightPos"), 8, (float*)&pointLightPositions_arr);
-	glUniform3fv(glGetUniformLocation(program, "lightColor"), 8, (float*)&pointlightColor_arr);
+	glUniform3fv(glGetUniformLocation(programTex, "lightPos"), 8, (float*)&pointLightPositions_arr);
+	glUniform3fv(glGetUniformLocation(programTex, "lightColor"), 8, (float*)&pointlightColor_arr);
 
-	glUniform3f(glGetUniformLocation(program, "spotlightConeDir"), spotlightConeDir.x, spotlightConeDir.y, spotlightConeDir.z);
+	glUniform3f(glGetUniformLocation(programTex, "spotlightConeDir"), spotlightConeDir.x, spotlightConeDir.y, spotlightConeDir.z);
 
-	glUniform3f(glGetUniformLocation(program, "spotlightPos"), spotlightPos.x, spotlightPos.y, spotlightPos.z);
+	glUniform3f(glGetUniformLocation(programTex, "spotlightPos"), spotlightPos.x, spotlightPos.y, spotlightPos.z);
 	if (flashlight) {
-		glUniform3f(glGetUniformLocation(program, "spotlightColor"), spotlightColor.x, spotlightColor.y, spotlightColor.z);
+		glUniform3f(glGetUniformLocation(programTex, "spotlightColor"), spotlightColor.x, spotlightColor.y, spotlightColor.z);
 	}
 	else {
-		glUniform3f(glGetUniformLocation(program, "spotlightColor"), 0.f, 0.f, 0.f);
+		glUniform3f(glGetUniformLocation(programTex, "spotlightColor"), 0.f, 0.f, 0.f);
 	}
 
-	glUniform1f(glGetUniformLocation(program, "spotlightPhi"), spotlightPhi);
+	glUniform1f(glGetUniformLocation(programTex, "spotlightPhi"), spotlightPhi);
+
+	Core::DrawContext(context);
+}
+
+
+void drawObjectPBRTextureNormal(Core::RenderContext& context, glm::mat4 modelMatrix, GLuint texture, GLuint normal, float roughness, float metallic) {
+
+	glm::mat4 viewProjectionMatrix = createPerspectiveMatrix() * createCameraMatrix();
+	glm::mat4 transformation = viewProjectionMatrix * modelMatrix;
+	glUniformMatrix4fv(glGetUniformLocation(programTexNormal, "transformation"), 1, GL_FALSE, (float*)&transformation);
+	glUniformMatrix4fv(glGetUniformLocation(programTexNormal, "modelMatrix"), 1, GL_FALSE, (float*)&modelMatrix);
+
+	glUniform1f(glGetUniformLocation(programTexNormal, "exposition"), exposition);
+
+	glUniform1f(glGetUniformLocation(programTexNormal, "roughness"), roughness);
+	glUniform1f(glGetUniformLocation(programTexNormal, "metallic"), metallic);
+
+	Core::SetActiveTexture(texture, "colorTexture", programTexNormal, 2);
+	Core::SetActiveTexture(normal, "normalSampler", programTexNormal, 3);
+	// glUniform3f(glGetUniformLocation(program, "color"), color.x, color.y, color.z);
+
+	glUniform3f(glGetUniformLocation(programTexNormal, "cameraPos"), cameraPos.x, cameraPos.y, cameraPos.z);
+
+	glUniform3f(glGetUniformLocation(programTexNormal, "sunDir"), sunDir.x, sunDir.y, sunDir.z);
+	glUniform3f(glGetUniformLocation(programTexNormal, "sunColor"), sunColor.x, sunColor.y, sunColor.z);
+
+	glUniform3fv(glGetUniformLocation(programTexNormal, "lightPos"), 8, (float*)&pointLightPositions_arr);
+	glUniform3fv(glGetUniformLocation(programTexNormal, "lightColor"), 8, (float*)&pointlightColor_arr);
+
+	glUniform3f(glGetUniformLocation(programTexNormal, "spotlightConeDir"), spotlightConeDir.x, spotlightConeDir.y, spotlightConeDir.z);
+
+	glUniform3f(glGetUniformLocation(programTexNormal, "spotlightPos"), spotlightPos.x, spotlightPos.y, spotlightPos.z);
+	if (flashlight) {
+		glUniform3f(glGetUniformLocation(programTexNormal, "spotlightColor"), spotlightColor.x, spotlightColor.y, spotlightColor.z);
+	}
+	else {
+		glUniform3f(glGetUniformLocation(programTexNormal, "spotlightColor"), 0.f, 0.f, 0.f);
+	}
+
+	glUniform1f(glGetUniformLocation(programTexNormal, "spotlightPhi"), spotlightPhi);
 
 	Core::DrawContext(context);
 }
@@ -422,12 +481,36 @@ void renderScene(GLFWwindow* window)
 		glm::rotate(glm::mat4(), glm::radians(90.f), glm::vec3(0, 0, 1)), texture::tableWood, 0.2f, 0.0f);
 	glUseProgram(program);
 
+	// prezenty
+	glUseProgram(programTex);
+	drawObjectPBRTexture(models::christmasPresent, glm::mat4() * glm::translate(glm::vec3(-0.8f, 0.0f, 1.5f)) * glm::scale(glm::vec3(0.02f))
+		* glm::rotate(glm::mat4(), glm::radians(-45.f), glm::vec3(0, 1, 0)), texture::present, 0.5f, 1.f);
+	drawObjectPBRTexture(models::christmasPresent2, glm::mat4() * glm::translate(glm::vec3(-1.3f, 0.0f, 1.3f)) * glm::scale(glm::vec3(0.15f)),
+		texture::present2, 0.5f, 1.f);
+	drawObjectPBRTexture(models::christmasPresent4, glm::mat4() * glm::rotate(glm::mat4(), glm::radians(-90.f), glm::vec3(1, 0, 0)) * glm::translate(glm::vec3(-0.6f, -2.0f, 0.f))
+		* glm::scale(glm::vec3(0.015f)), texture::present4, 0.5f, 1.f);
+
+	// monitor
+	drawObjectPBRTexture(models::monitor, glm::mat4() * glm::translate(glm::vec3(-1.45f, 1.18f, -0.6f)) * glm::rotate(glm::mat4(), glm::radians(45.f), glm::vec3(0, 1, 0))
+		* glm::scale(glm::vec3(0.01)), texture::monitor, 0.5f, 0.75f);
+
+	// klawiaturka
+	drawObjectPBRTexture(models::keyboard, glm::mat4() * glm::translate(glm::vec3(-1.25f, 0.93f, -0.4f)) * glm::rotate(glm::mat4(), glm::radians(45.f), glm::vec3(0, 1, 0))
+		* glm::rotate(glm::mat4(), glm::radians(-90.f), glm::vec3(1, 0, 0)) * glm::scale(glm::vec3(0.008)), texture::keyboard, 0.5f, 1.f);
+
+
+	// podloga
+	drawObjectPBRTexture(models::planeContext, glm::mat4() * glm::scale(glm::vec3(1.1f)), texture::tableWood, 0.3f, 0.0f);
+
+
+	glUseProgram(program);
+
 
 	drawObjectPBR(models::materaceContext, glm::mat4(), glm::vec3(0.9f, 0.9f, 0.9f), 0.8f, 0.0f);
 	drawObjectPBR(models::pencilsContext, glm::mat4() * glm::translate(glm::vec3(0.f, -0.1f, 0.f)), glm::vec3(0.10039f, 0.018356f, 0.001935f), 0.1f, 0.0f);
 
 	// prolly trzeba bedzie powiekszysc pokój, wiec tu zamiast skalowac 1.1f, to trzeba bedzie np. (1.5f, 1.f, 1.f)
-	drawObjectPBR(models::planeContext, glm::mat4() * glm::scale(glm::vec3(1.1f)), glm::vec3(0.402978f, 0.120509f, 0.057729f), 0.2f, 0.0f);
+	//drawObjectPBR(models::planeContext, glm::mat4() * glm::scale(glm::vec3(1.1f)), glm::vec3(0.402978f, 0.120509f, 0.057729f), 0.2f, 0.0f);
 	drawObjectPBR(models::roomContext, glm::mat4() * glm::scale(glm::vec3(1.1f)), glm::vec3(0.9f, 0.9f, 0.9f), 0.8f, 0.0f);
 	drawObjectPBR(models::windowContext, glm::mat4(), glm::vec3(0.402978f, 0.120509f, 0.057729f), 0.2f, 0.0f);
 	
@@ -450,7 +533,6 @@ void renderScene(GLFWwindow* window)
 
 	// change lights 
 	runLights(lightningMode, time);
-	// std::cout << intTime << std::endl;
 
 	glm::vec3 spaceshipSide = glm::normalize(glm::cross(spaceshipDir, glm::vec3(0.f, 1.f, 0.f)));
 	glm::vec3 spaceshipUp = glm::normalize(glm::cross(spaceshipSide, spaceshipDir));
@@ -515,6 +597,7 @@ void init(GLFWwindow* window)
 	programSun = shaderLoader.CreateProgram("shaders/shader_8_sun.vert", "shaders/shader_8_sun.frag");
 	programSkybox = shaderLoader.CreateProgram("shaders/shader_skybox-1.vert", "shaders/shader_skybox-1.frag");
 	programTex = shaderLoader.CreateProgram("shaders/shader_tex.vert", "shaders/shader_tex.frag");
+	programTexNormal = shaderLoader.CreateProgram("shaders/shader_tex_normal.vert", "shaders/shader_tex_normal.frag");
 
 	loadModelToContext("./models/sphere.obj", sphereContext);
 	loadModelToContext("./models/santa_sliegh.fbx", shipContext);
@@ -540,6 +623,13 @@ void init(GLFWwindow* window)
 	loadModelToContext("./models/christmas.fbx", models::starContext);
 	loadModelToContext("./models/cube.obj", skyboxContext);
 	loadModelToContext("./models/table_download.fbx", models::table2Context);
+	loadModelToContext("./models/giftTest.fbx", models::christmasPresent);
+	loadModelToContext("./models/BoxHappy.fbx", models::christmasPresent2);
+	loadModelToContext("./models/pr_present_uv.fbx", models::christmasPresent3);
+	loadModelToContext("./models/Gift.fbx", models::christmasPresent4);
+	loadModelToContext("./models/Monitor.fbx", models::monitor);
+	loadModelToContext("./models/keyboard.obj", models::keyboard);
+
 
 	char* textures[] = { "textures/skybox/sh_ft.png", "textures/skybox/sh_bk.png", "textures/skybox/sh_up.png", "textures/skybox/sh_dn.png", "textures/skybox/sh_rt.png", "textures/skybox/sh_lf.png" };
 	loadCubemap(textures);
@@ -547,6 +637,16 @@ void init(GLFWwindow* window)
 	texture::earth = Core::LoadTexture("./textures/earth.png");
 	texture::tableWood = Core::LoadTexture("./textures/table_wood.jpg");
 	texture::sleigh = Core::LoadTexture("./textures/sleigh.jpg");
+	texture::present = Core::LoadTexture("./textures/giftTex.png");
+	texture::present2 = Core::LoadTexture("./textures/lambert1_albedo.jpeg");
+	texture::present3 = Core::LoadTexture("./textures/paket_ny_albedo_F.png");
+	texture::present4 = Core::LoadTexture("./textures/present.png");
+	texture::monitor = Core::LoadTexture("./textures/monitor.jpg");
+	texture::keyboard = Core::LoadTexture("./textures/keyboard.jpg");
+
+
+	normals::normal_present2 = Core::LoadTexture("./textures/lambert1_normal.png");
+	normals::normal_present3 = Core::LoadTexture("./textures/paket_ny_normal.png");
 }
 
 void shutdown(GLFWwindow* window)

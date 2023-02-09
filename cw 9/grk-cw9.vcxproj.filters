@@ -121,5 +121,11 @@
     <None Include="shaders\shader_tex.vert">
       <Filter>Shader Files</Filter>
     </None>
+    <None Include="shaders\shader_tex_normal.frag">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="shaders\shader_tex_normal.vert">
+      <Filter>Shader Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
