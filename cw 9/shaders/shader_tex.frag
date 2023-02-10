@@ -4,6 +4,7 @@ float AMBIENT = 0.03;
 float PI = 3.14;
 
 uniform sampler2D depthMap;
+uniform sampler2D sleighDepthMap;
 
 uniform vec3 cameraPos;
 
@@ -18,6 +19,7 @@ uniform vec3 spotlightColor;
 uniform vec3 spotlightConeDir;
 uniform vec3 spotlightPhi;
 
+uniform float alpha;
 uniform float metallic;
 uniform float roughness;
 
@@ -25,6 +27,9 @@ uniform float exposition;
 
 in vec3 vecNormal;
 in vec3 worldPos;
+
+in vec4 sunSpacePos;
+in vec4 sleighLightSpacePos;
 
 out vec4 outColor;
 
@@ -101,6 +106,35 @@ vec3 PBRLight(vec3 lightDir, vec3 radiance, vec3 normal, vec3 V){
 	return (kD * color / PI + specular) * radiance * NdotL;
 }
 
+float generateShadow(vec3 normal, vec3 lightDir) {
+	vec4 sunSpacePosNormalized =  (0.5 * sunSpacePos / (sunSpacePos.w)) + 0.5;
+
+    float closestDepth = texture2D(depthMap, sunSpacePosNormalized.xy).r;
+
+    float bias = max(0.01*(1.0-dot(normal,lightDir)),0.001);
+
+    if (closestDepth + bias > sunSpacePosNormalized.z)
+    {
+        return 1.0;
+    }
+
+    return 0.0;
+}
+
+float generateShadowSleigh(vec3 normal, vec3 spotLightDir) {
+    vec4 sleighLightSpacePosNormalized =  (0.5 * sleighLightSpacePos / (sleighLightSpacePos.w)) + 0.5;
+
+    float closestDepth = texture2D(sleighDepthMap, sleighLightSpacePosNormalized.xy).r;
+
+    float bias = max(0.02*(1.0-dot(normal,spotLightDir)),0.002);
+
+    if (closestDepth + bias > sleighLightSpacePosNormalized.z)
+    {
+        return 1.0;
+    }
+
+    return 0.0;
+}
 
 void main()
 {
@@ -129,12 +163,12 @@ void main()
 
         float angle_atenuation = clamp((dot(-normalize(spotlightPos-worldPos),spotlightConeDir)-0.5)*3,0,1);
 	    attenuatedlightColor = angle_atenuation*spotlightColor/pow(length(spotlightPos-worldPos),2);
-	    ilumination=ilumination+PBRLight(spotlightDir,attenuatedlightColor,normal,viewDir);
+	    ilumination=ilumination+PBRLight(spotlightDir,attenuatedlightColor*generateShadowSleigh(normal,spotlightDir),normal,viewDir);
 
 	    //sun
-	    ilumination=ilumination+PBRLight(sunDir,sunColor,normal,viewDir);
+	    ilumination=ilumination+PBRLight(sunDir,sunColor*generateShadow(normal, lightDir),normal,viewDir);
         totalIllumination = totalIllumination + ilumination;
     }
    
-	outColor = vec4(vec3(1.0) - exp(-totalIllumination*exposition), 1);
+	outColor = vec4(vec3(1.0) - exp(-totalIllumination*exposition), alpha);
 }

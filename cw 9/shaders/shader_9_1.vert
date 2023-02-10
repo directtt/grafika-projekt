@@ -9,8 +9,13 @@ layout(location = 4) in vec3 vertexBitangent;
 uniform mat4 transformation;
 uniform mat4 modelMatrix;
 
+uniform mat4 LightVP;
+uniform mat4 sleighLightVP;
+
 out vec3 vecNormal;
 out vec3 worldPos;
+out vec4 sunSpacePos;
+out vec4 sleighLightSpacePos;
 
 uniform vec3 lightPos[8];
 uniform vec3 spotlightPos;
@@ -44,4 +49,6 @@ void main()
 	spotlightDirTS = TBN*SL;
 	sunDirTS = TBN*sunDir;
 
+	sunSpacePos=LightVP*modelMatrix*vec4(vertexPosition,1);
+	sleighLightSpacePos=sleighLightVP*modelMatrix*vec4(vertexPosition,1);
 }

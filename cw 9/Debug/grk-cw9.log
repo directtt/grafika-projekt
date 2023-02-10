@@ -1,76 +1,105 @@
 ﻿  main.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130,1): warning C4005: "APIENTRY": ponowna definicja makra
 C:\uczelnia\grafika-projekt-git\dependencies\glfw-3.3.8.bin.WIN32\include\GLFW\glfw3.h(123): message : zobacz poprzednią definicję „APIENTRY”
-C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(156,30): warning C4305: "inicjowanie": obcięcie z "double" do "float"
-C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(169,38): warning C4305: "=": obcięcie z "double" do "float"
-C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(192,16): warning C4305: "inicjowanie": obcięcie z "double" do "float"
-C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(340,13): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
-C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(444,13): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
-C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(453,108): warning C4305: "argument": obcięcie z "double" do "T"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(173,30): warning C4305: "inicjowanie": obcięcie z "double" do "float"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(186,38): warning C4305: "=": obcięcie z "double" do "float"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(209,16): warning C4305: "inicjowanie": obcięcie z "double" do "float"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(540,13): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(548,98): warning C4305: "argument": obcięcie z "double" do "T"
           with
           [
               T=float
           ]
-C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(461,87): warning C4305: "argument": obcięcie z "double" do "T"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(550,98): warning C4305: "argument": obcięcie z "double" do "T"
           with
           [
               T=float
           ]
-C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(461,223): warning C4305: "argument": obcięcie z "double" do "float"
-C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(464,59): warning C4305: "argument": obcięcie z "double" do "T"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(579,13): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(586,16): warning C4305: "inicjowanie": obcięcie z "double" do "float"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(601,104): warning C4305: "argument": obcięcie z "double" do "T"
           with
           [
               T=float
           ]
-C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(465,37): warning C4305: "argument": obcięcie z "double" do "float"
-C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(495,30): warning C4305: "argument": obcięcie z "double" do "T"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(603,104): warning C4305: "argument": obcięcie z "double" do "T"
           with
           [
               T=float
           ]
-C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(499,99): warning C4305: "argument": obcięcie z "double" do "T"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(634,13): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(646,108): warning C4305: "argument": obcięcie z "double" do "T"
           with
           [
               T=float
           ]
-C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(522,96): warning C4305: "argument": obcięcie z "double" do "T"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(655,94): warning C4305: "argument": obcięcie z "double" do "T"
           with
           [
               T=float
           ]
-C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(523,96): warning C4305: "argument": obcięcie z "double" do "T"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(655,240): warning C4305: "argument": obcięcie z "double" do "float"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(658,95): warning C4305: "argument": obcięcie z "double" do "T"
           with
           [
               T=float
           ]
-C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(524,96): warning C4305: "argument": obcięcie z "double" do "T"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(658,233): warning C4244: "argument": konwersja z "double" do "float", możliwa utrata danych
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(658,258): warning C4305: "argument": obcięcie z "double" do "float"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(662,59): warning C4305: "argument": obcięcie z "double" do "T"
           with
           [
               T=float
           ]
-C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(525,96): warning C4305: "argument": obcięcie z "double" do "T"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(663,46): warning C4305: "argument": obcięcie z "double" do "float"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(695,30): warning C4305: "argument": obcięcie z "double" do "T"
           with
           [
               T=float
           ]
-C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(526,96): warning C4305: "argument": obcięcie z "double" do "T"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(699,99): warning C4305: "argument": obcięcie z "double" do "T"
           with
           [
               T=float
           ]
-C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(527,96): warning C4305: "argument": obcięcie z "double" do "T"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(722,96): warning C4305: "argument": obcięcie z "double" do "T"
           with
           [
               T=float
           ]
-C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(530,115): warning C4305: "argument": obcięcie z "double" do "T"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(723,96): warning C4305: "argument": obcięcie z "double" do "T"
           with
           [
               T=float
           ]
-C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(558,2): warning C4305: "argument": obcięcie z "double" do "float"
-C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(696,21): warning C4305: "-=": obcięcie z "double" do "float"
-C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(698,21): warning C4305: "+=": obcięcie z "double" do "float"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(724,96): warning C4305: "argument": obcięcie z "double" do "T"
+          with
+          [
+              T=float
+          ]
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(725,96): warning C4305: "argument": obcięcie z "double" do "T"
+          with
+          [
+              T=float
+          ]
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(726,96): warning C4305: "argument": obcięcie z "double" do "T"
+          with
+          [
+              T=float
+          ]
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(727,96): warning C4305: "argument": obcięcie z "double" do "T"
+          with
+          [
+              T=float
+          ]
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(730,167): warning C4305: "argument": obcięcie z "double" do "T"
+          with
+          [
+              T=float
+          ]
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(758,26): warning C4305: "argument": obcięcie z "double" do "float"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(906,21): warning C4305: "-=": obcięcie z "double" do "float"
+C:\uczelnia\grafika-projekt-git\cw 9\src\ex_9_1.hpp(908,21): warning C4305: "+=": obcięcie z "double" do "float"
 Box.obj : warning LNK4075: zignorowano opcję „/EDITANDCONTINUE” z powodu określenia opcji „/INCREMENTAL:NO”
 LINK : warning LNK4098: domyślna biblioteka „MSVCRT” powoduje konflikt z innymi bibliotekami; użyj opcji /NODEFAULTLIB:biblioteka
   grk-cw9.vcxproj -> C:\uczelnia\grafika-projekt-git\Debug\grk-cw9.exe
