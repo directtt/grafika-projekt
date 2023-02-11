@@ -662,6 +662,16 @@ void renderScene(GLFWwindow* window)
 		glm::translate(pointlightPos) * glm::scale(glm::vec3(0.1)) * glm::eulerAngleY(time * 2) * glm::translate(glm::vec3(4.f, 0, 0)) * glm::eulerAngleY(time) * glm::translate(glm::vec3(1.f, 0, 0)) * glm::scale(glm::vec3(0.2f)),
 		texture::moon, 0.3, 0.0, 1.0, sleighLightVP);
 
+	for (int i = 0; i < 5; i++) {
+		//drawObjectPBRTexture(sphereContext, glm::translate(pointlightPos) * glm::scale(glm::vec3(0.1)) * glm::eulerAngleY(time * 2) * glm::translate(glm::vec3(4.f, 0, 0.1 * i)) * glm::scale(glm::vec3(0.4f)), texture::earth, 0.3, 0.0, 0.5 - 0.05 * i, sleighLightVP);
+		drawObjectPBRTexture(sphereContext,
+			glm::translate(pointlightPos) * glm::scale(glm::vec3(0.1)) * glm::eulerAngleY(time * 2) * glm::translate(glm::vec3(4.f, 0, 0)) * glm::eulerAngleY(time) * glm::translate(glm::vec3(1.f, 0, 0.04 * i)) * glm::scale(glm::vec3(0.2f)),
+			texture::moon, 0.3, 0.0, 0.5 - 0.1 * i, sleighLightVP);
+		drawObjectPBRTexture(sphereContext,
+			glm::translate(pointlightPos) * glm::scale(glm::vec3(0.1)) * glm::eulerAngleY(time * 2) * glm::translate(glm::vec3(4.f, 0, 0)) * glm::eulerAngleY(time) * glm::translate(glm::vec3(1.f, 0, -0.04 * i)) * glm::scale(glm::vec3(0.2f)),
+			texture::moon, 0.3, 0.0, 0.5 - 0.1 * i, sleighLightVP);
+	}
+
 	glUseProgram(program);
 
 	drawObjectPBR(models::bedContext, glm::mat4(), glm::vec3(0.03f, 0.03f, 0.03f), 1.0, 0.2f, 0.0f, sleighLightVP);
