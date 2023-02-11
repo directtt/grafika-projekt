@@ -46,6 +46,8 @@ namespace models {
 	Core::RenderContext monitor;
 	Core::RenderContext keyboard;
 	Core::RenderContext computerMouse;
+	Core::RenderContext pillow;
+	Core::RenderContext carpet;
 }
 
 namespace texture {
@@ -60,6 +62,8 @@ namespace texture {
 	GLuint monitor;
 	GLuint keyboard;
 	GLuint moon;
+	GLuint pillow;
+	GLuint carpet;
 }
 
 namespace normals {
@@ -704,6 +708,14 @@ void renderScene(GLFWwindow* window)
 	drawObjectPBRTexture(models::monitor, glm::mat4() * glm::translate(glm::vec3(-1.45f, 1.18f, -0.6f)) * glm::rotate(glm::mat4(), glm::radians(45.f), glm::vec3(0, 1, 0))
 		* glm::scale(glm::vec3(0.01)), texture::monitor, 0.5f, 0.75f, 1.f, sleighLightVP);
 
+	// poduszka
+	drawObjectPBRTexture(models::pillow, glm::mat4() * glm::translate(glm::vec3(0.9f, 0.6f, 0.65f)) * glm::rotate(glm::mat4(), glm::radians(90.f), glm::vec3(0, 1, 0))
+		* glm::scale(glm::vec3(0.0036)), texture::pillow, 2.5f, 0.75f, 1.f, sleighLightVP);
+
+	// dywan
+	drawObjectPBRTexture(models::carpet, glm::mat4() * glm::translate(glm::vec3(-0.2f, 0.1f, -0.25f)) * glm::rotate(glm::mat4(), glm::radians(90.f), glm::vec3(1, 0, 0))
+		* glm::rotate(glm::mat4(), glm::radians(90.f), glm::vec3(0, 0, 1)) * glm::scale(glm::vec3(0.01)), texture::carpet, 2.5f, 0.75f, 1.f, sleighLightVP);
+
 	// klawiaturka
 	drawObjectPBRTexture(models::keyboard, glm::mat4() * glm::translate(glm::vec3(-1.25f, 0.93f, -0.4f)) * glm::rotate(glm::mat4(), glm::radians(45.f), glm::vec3(0, 1, 0))
 		* glm::rotate(glm::mat4(), glm::radians(-90.f), glm::vec3(1, 0, 0)) * glm::scale(glm::vec3(0.008)), texture::keyboard, 0.5f, 1.f, 1.f, sleighLightVP);
@@ -846,6 +858,8 @@ void init(GLFWwindow* window)
 	loadModelToContext("./models/Gift.fbx", models::christmasPresent4);
 	loadModelToContext("./models/Monitor.fbx", models::monitor);
 	loadModelToContext("./models/keyboard.obj", models::keyboard);
+	loadModelToContext("./models/pillow.obj", models::pillow);
+	loadModelToContext("./models/carpet.obj", models::carpet);
 
 	char* textures[] = { "textures/skybox/sh_ft.png", "textures/skybox/sh_bk.png", "textures/skybox/sh_up.png", "textures/skybox/sh_dn.png", "textures/skybox/sh_rt.png", "textures/skybox/sh_lf.png" };
 	loadCubemap(textures);
@@ -860,6 +874,8 @@ void init(GLFWwindow* window)
 	texture::monitor = Core::LoadTexture("./textures/monitor.jpg");
 	texture::keyboard = Core::LoadTexture("./textures/keyboard.jpg");
 	texture::moon = Core::LoadTexture("./textures/moon.jpg");
+	texture::pillow = Core::LoadTexture("./textures/pillow.png");
+	texture::carpet = Core::LoadTexture("./textures/carpet.jpg");
 
 	normals::normal_present2 = Core::LoadTexture("./textures/lambert1_normal.png");
 	normals::normal_present3 = Core::LoadTexture("./textures/paket_ny_normal.png");
