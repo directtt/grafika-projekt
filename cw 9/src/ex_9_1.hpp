@@ -51,6 +51,9 @@ namespace models {
 	Core::RenderContext roof;
 	Core::RenderContext snowMan;
 	Core::RenderContext chair;
+	Core::RenderContext cactus;
+	Core::RenderContext christmasStocking;
+	Core::RenderContext plant;
 }
 
 namespace texture {
@@ -72,6 +75,9 @@ namespace texture {
 	GLuint snowMan;
 	GLuint doors;
 	GLuint chair;
+	GLuint cactus;
+	GLuint stocking;
+	GLuint plant;
 }
 
 namespace normals {
@@ -118,7 +124,7 @@ GLuint VAO, VBO;
 
 float aspectRatio = 1.f;
 
-float exposition = 1.f;
+float exposition = 1.5f;
 
 glm::vec3 pointlightPos = glm::vec3(0, 2, 0);
 glm::vec3 pointlightColor = glm::vec3(0.9, 0.6, 0.6);
@@ -692,10 +698,8 @@ void renderScene(GLFWwindow* window)
 	//drawObjectPBR(models::chairContext, glm::mat4() * glm::translate(glm::vec3(-0.1f, 0.f, -0.1f)), glm::vec3(0.195239f, 0.37728f, 0.8f), 1.0, 0.4f, 0.0f, sleighLightVP);
 	//drawObjectPBR(models::deskContext, glm::mat4(), glm::vec3(0.428691f, 0.08022f, 0.036889f), 0.2f, 0.0f);
 	//drawObjectPBR(models::doorContext, glm::mat4() * glm::scale(glm::vec3(1.f, 1.f, 1.f)), glm::vec3(0.402978f, 0.120509f, 0.057729f), 1.0, 0.2f, 0.0f, sleighLightVP);
-	drawObjectPBR(models::drawerContext, glm::mat4(), glm::vec3(0.428691f, 0.08022f, 0.036889f), 1.0, 0.2f, 0.0f, sleighLightVP);
-
 	glUseProgram(programTex);
-	//drawObjectTexture(models::marbleBustContext, glm::mat4(), texture::earth);
+	drawObjectPBRTexture(models::drawerContext, glm::mat4(), texture::doors, 1.0, 0.2f, 1.0f, sleighLightVP);
 	drawObjectPBRTexture(models::marbleBustContext, glm::mat4() * glm::translate(glm::vec3(0.f, -0.15f, 0.f)), texture::earth, 1.f, 0.5f, 1.f, sleighLightVP);
 	glUseProgram(program);
 	
@@ -737,7 +741,7 @@ void renderScene(GLFWwindow* window)
 	// dach
 	drawObjectPBRTexture(models::roof, glm::mat4() * glm::translate(glm::vec3(0.f, 0.f, 0.f)) * glm::mat4() * glm::scale(glm::vec3(1.f)), texture::roof, 0.3f, 0.0f, 1.f, sleighLightVP);	
 	
-  // cobble
+   // cobble
 	drawObjectPBRTexture(models::planeContext, glm::mat4() * glm::translate(glm::vec3(0.f, -0.01f, 0.f)) * glm::scale(glm::vec3(1.75f)), texture::cobble, 0.3f, 0.0f, 1.f, sleighLightVP);
 
 	// podloga
@@ -747,6 +751,19 @@ void renderScene(GLFWwindow* window)
 	drawObjectPBRTexture(models::snowMan, glm::mat4() * glm::translate(glm::vec3(1.3f, 0.25f, -2.95f)) * 
 		glm::rotate(glm::mat4(), glm::radians(-180.f), glm::vec3(0, 1, 0))  * glm::scale(glm::vec3(0.4f)), texture::snowMan, 0.3f, 0.0f, 1.f, sleighLightVP);
 
+	// kaktus
+	drawObjectPBRTexture(models::cactus, glm::mat4() * glm::translate(glm::vec3(0.85f, 0.5f, 1.45f)) * glm::rotate(glm::mat4(), glm::radians(-90.f), glm::vec3(1, 0, 0))
+		* glm::rotate(glm::mat4(), glm::radians(-135.f), glm::vec3(0, 0, 1)) * glm::scale(glm::vec3(0.2f)), texture::cactus, 0.3f, 0.0f, 1.f, sleighLightVP);
+
+	// ozdoba drzwi 
+	drawObjectPBRTexture(models::christmasStocking, glm::mat4() * glm::translate(glm::vec3(-0.63f, 1.2f, -1.95f)) *
+		glm::rotate(glm::mat4(), glm::radians(-90.f), glm::vec3(1, 0, 0)) *
+		glm::rotate(glm::mat4(), glm::radians(45.f), glm::vec3(0, 0, 1)) * glm::scale(glm::vec3(0.1f)), texture::stocking, 0.3f, 0.0f, 1.f, sleighLightVP);
+
+	// deer
+	drawObjectPBRTexture(models::plant, glm::mat4() * glm::translate(glm::vec3(1.3f, 0.f, -1.8f)) *
+		glm::rotate(glm::mat4(), glm::radians(-90.f), glm::vec3(1, 0, 0)) * glm::scale(glm::vec3(0.015f)) , texture::plant, 0.3f, 0.0f, 1.f, sleighLightVP);
+	
 	
 	glUseProgram(program);
 	drawObjectPBR(models::materaceContext, glm::mat4(), glm::vec3(0.9f, 0.9f, 0.9f), 1.0, 0.8f, 0.0f, sleighLightVP);
@@ -770,7 +787,7 @@ void renderScene(GLFWwindow* window)
 	drawObjectPBR(sphereContext, glm::translate(chrismas_balls_pos[5]) * glm::scale(glm::vec3(0.07)), glm::vec3(0.0, 0.0, 1.0), 1.0, 0.5, 0.0, sleighLightVP);
 
 	// christmas star
-	drawObjectPBR(models::starContext, glm::mat4() * glm::translate(chrismas_balls_pos[6]) * glm::translate(glm::vec3(0.025f, -0.05f, -0.02f)) * glm::scale(glm::vec3(0.1)) *
+	drawObjectPBR(models::starContext, glm::mat4() * glm::translate(chrismas_balls_pos[6]) * glm::translate(glm::vec3(0.025f, -0.06f, -0.02f)) * glm::scale(glm::vec3(0.1)) *
 		glm::rotate(glm::mat4(), glm::radians(55.f), glm::vec3(0, 1, 0)) *
 		glm::rotate(glm::mat4(), glm::degrees(45.f), glm::vec3(1, 0, 0)), glm::vec3(1.f, 1.f, 0.f), 1.0, 0.5f, 0.0f, sleighLightVP);
 
@@ -884,6 +901,9 @@ void init(GLFWwindow* window)
 	loadModelToContext("./models/roof.obj", models::roof);
 	loadModelToContext("./models/snowman.fbx", models::snowMan);
 	loadModelToContext("./models/TOPOR.obj", models::chair);
+	loadModelToContext("./models/CatcusLowpoly.fbx", models::cactus);
+	loadModelToContext("./models/Stocking3.fbx", models::christmasStocking);
+	loadModelToContext("./models/deer.fbx", models::plant);
 
 	char* textures[] = { "textures/skybox/sh_ft.png", "textures/skybox/sh_bk.png", "textures/skybox/sh_up.png", "textures/skybox/sh_dn.png", "textures/skybox/sh_rt.png", "textures/skybox/sh_lf.png" };
 	loadCubemap(textures);
@@ -905,6 +925,9 @@ void init(GLFWwindow* window)
 	texture::snowMan = Core::LoadTexture("./textures/snowman.png");
 	texture::doors = Core::LoadTexture("./textures/doors.png");
 	texture::chair = Core::LoadTexture("./textures/1.png");
+	texture::cactus = Core::LoadTexture("./textures/cactus.png");
+	texture::stocking = Core::LoadTexture("./textures/Stocking_albedo.jpg");
+	texture::plant = Core::LoadTexture("./textures/a0.png");
 
 	normals::normal_present2 = Core::LoadTexture("./textures/lambert1_normal.png");
 	normals::normal_present3 = Core::LoadTexture("./textures/paket_ny_normal.png");
