@@ -48,6 +48,7 @@ namespace models {
 	Core::RenderContext computerMouse;
 	Core::RenderContext pillow;
 	Core::RenderContext carpet;
+	Core::RenderContext roof;
 }
 
 namespace texture {
@@ -64,6 +65,7 @@ namespace texture {
 	GLuint moon;
 	GLuint pillow;
 	GLuint carpet;
+	GLuint roof;
 }
 
 namespace normals {
@@ -720,6 +722,9 @@ void renderScene(GLFWwindow* window)
 	drawObjectPBRTexture(models::keyboard, glm::mat4() * glm::translate(glm::vec3(-1.25f, 0.93f, -0.4f)) * glm::rotate(glm::mat4(), glm::radians(45.f), glm::vec3(0, 1, 0))
 		* glm::rotate(glm::mat4(), glm::radians(-90.f), glm::vec3(1, 0, 0)) * glm::scale(glm::vec3(0.008)), texture::keyboard, 0.5f, 1.f, 1.f, sleighLightVP);
 
+	// dach
+	drawObjectPBRTexture(models::roof, glm::mat4() * glm::translate(glm::vec3(0.f, 0.001f, 0.01f)) * glm::mat4() * glm::scale(glm::vec3(1.f)), texture::roof, 0.3f, 0.0f, 1.f, sleighLightVP);
+
 	// podloga
 	drawObjectPBRTexture(models::planeContext, glm::mat4() * glm::scale(glm::vec3(1.1f)), texture::tableWood, 0.3f, 0.0f, 1.f, sleighLightVP);
 
@@ -860,6 +865,7 @@ void init(GLFWwindow* window)
 	loadModelToContext("./models/keyboard.obj", models::keyboard);
 	loadModelToContext("./models/pillow.obj", models::pillow);
 	loadModelToContext("./models/carpet.obj", models::carpet);
+	loadModelToContext("./models/roof.obj", models::roof);
 
 	char* textures[] = { "textures/skybox/sh_ft.png", "textures/skybox/sh_bk.png", "textures/skybox/sh_up.png", "textures/skybox/sh_dn.png", "textures/skybox/sh_rt.png", "textures/skybox/sh_lf.png" };
 	loadCubemap(textures);
@@ -876,6 +882,7 @@ void init(GLFWwindow* window)
 	texture::moon = Core::LoadTexture("./textures/moon.jpg");
 	texture::pillow = Core::LoadTexture("./textures/pillow.png");
 	texture::carpet = Core::LoadTexture("./textures/carpet.jpg");
+	texture::roof = Core::LoadTexture("./textures/roof2_s_d.png");
 
 	normals::normal_present2 = Core::LoadTexture("./textures/lambert1_normal.png");
 	normals::normal_present3 = Core::LoadTexture("./textures/paket_ny_normal.png");
