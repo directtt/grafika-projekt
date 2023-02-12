@@ -49,6 +49,7 @@ namespace models {
 	Core::RenderContext pillow;
 	Core::RenderContext carpet;
 	Core::RenderContext roof;
+	Core::RenderContext chair;
 }
 
 namespace texture {
@@ -66,6 +67,7 @@ namespace texture {
 	GLuint pillow;
 	GLuint carpet;
 	GLuint roof;
+	GLuint chair;
 }
 
 namespace normals {
@@ -681,7 +683,7 @@ void renderScene(GLFWwindow* window)
 	glUseProgram(program);
 
 	drawObjectPBR(models::bedContext, glm::mat4(), glm::vec3(0.03f, 0.03f, 0.03f), 1.0, 0.2f, 0.0f, sleighLightVP);
-	drawObjectPBR(models::chairContext, glm::mat4() * glm::translate(glm::vec3(-0.1f, 0.f, -0.1f)), glm::vec3(0.195239f, 0.37728f, 0.8f), 1.0, 0.4f, 0.0f, sleighLightVP);
+	//drawObjectPBR(models::chairContext, glm::mat4() * glm::translate(glm::vec3(-0.1f, 0.f, -0.1f)), glm::vec3(0.195239f, 0.37728f, 0.8f), 1.0, 0.4f, 0.0f, sleighLightVP);
 	//drawObjectPBR(models::deskContext, glm::mat4(), glm::vec3(0.428691f, 0.08022f, 0.036889f), 0.2f, 0.0f);
 	drawObjectPBR(models::doorContext, glm::mat4() * glm::scale(glm::vec3(1.f, 1.f, 1.f)), glm::vec3(0.402978f, 0.120509f, 0.057729f), 1.0, 0.2f, 0.0f, sleighLightVP);
 	drawObjectPBR(models::drawerContext, glm::mat4(), glm::vec3(0.428691f, 0.08022f, 0.036889f), 1.0, 0.2f, 0.0f, sleighLightVP);
@@ -707,8 +709,16 @@ void renderScene(GLFWwindow* window)
 		* glm::scale(glm::vec3(0.015f)), texture::present4, 0.5f, 1.f, 1.f, sleighLightVP);
 
 	// monitor
-	drawObjectPBRTexture(models::monitor, glm::mat4() * glm::translate(glm::vec3(-1.45f, 1.18f, -0.6f)) * glm::rotate(glm::mat4(), glm::radians(45.f), glm::vec3(0, 1, 0))
+	drawObjectPBRTexture(models::monitor, glm::mat4() * glm::translate(glm::vec3(-1.45f, 1.18f, -0.6f)) * glm::rotate(glm::mat4(), glm::radians(70.f), glm::vec3(0, 1, 0))
 		* glm::scale(glm::vec3(0.01)), texture::monitor, 0.5f, 0.75f, 1.f, sleighLightVP);
+
+	// klawiaturka
+	drawObjectPBRTexture(models::keyboard, glm::mat4() * glm::translate(glm::vec3(-1.25f, 0.93f, -0.525f)) * glm::rotate(glm::mat4(), glm::radians(70.f), glm::vec3(0, 1, 0))
+		* glm::rotate(glm::mat4(), glm::radians(-80.f), glm::vec3(1, 0, 0)) * glm::scale(glm::vec3(0.008)), texture::keyboard, 0.5f, 1.f, 1.f, sleighLightVP);
+
+	// krzeslo
+	drawObjectPBRTexture(models::chair, glm::mat4() * glm::translate(glm::vec3(-0.5f, 1.215f, -0.4f)) * glm::rotate(glm::mat4(), glm::radians(0.f), glm::vec3(1, 0, 0))
+		* glm::rotate(glm::mat4(), glm::radians(75.f), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.148)), texture::chair, 0.5f, 1.f, 1.f, sleighLightVP);
 
 	// poduszka
 	drawObjectPBRTexture(models::pillow, glm::mat4() * glm::translate(glm::vec3(0.9f, 0.6f, 0.65f)) * glm::rotate(glm::mat4(), glm::radians(90.f), glm::vec3(0, 1, 0))
@@ -718,12 +728,8 @@ void renderScene(GLFWwindow* window)
 	drawObjectPBRTexture(models::carpet, glm::mat4() * glm::translate(glm::vec3(-0.2f, 0.1f, -0.25f)) * glm::rotate(glm::mat4(), glm::radians(90.f), glm::vec3(1, 0, 0))
 		* glm::rotate(glm::mat4(), glm::radians(90.f), glm::vec3(0, 0, 1)) * glm::scale(glm::vec3(0.01)), texture::carpet, 2.5f, 0.75f, 1.f, sleighLightVP);
 
-	// klawiaturka
-	drawObjectPBRTexture(models::keyboard, glm::mat4() * glm::translate(glm::vec3(-1.25f, 0.93f, -0.4f)) * glm::rotate(glm::mat4(), glm::radians(45.f), glm::vec3(0, 1, 0))
-		* glm::rotate(glm::mat4(), glm::radians(-90.f), glm::vec3(1, 0, 0)) * glm::scale(glm::vec3(0.008)), texture::keyboard, 0.5f, 1.f, 1.f, sleighLightVP);
-
 	// dach
-	drawObjectPBRTexture(models::roof, glm::mat4() * glm::translate(glm::vec3(0.f, 0.001f, 0.01f)) * glm::mat4() * glm::scale(glm::vec3(1.f)), texture::roof, 0.3f, 0.0f, 1.f, sleighLightVP);
+	drawObjectPBRTexture(models::roof, glm::mat4() * glm::translate(glm::vec3(0.f, 0.f, 0.f)) * glm::mat4() * glm::scale(glm::vec3(1.f)), texture::roof, 0.3f, 0.0f, 1.f, sleighLightVP);
 
 	// podloga
 	drawObjectPBRTexture(models::planeContext, glm::mat4() * glm::scale(glm::vec3(1.1f)), texture::tableWood, 0.3f, 0.0f, 1.f, sleighLightVP);
@@ -866,6 +872,7 @@ void init(GLFWwindow* window)
 	loadModelToContext("./models/pillow.obj", models::pillow);
 	loadModelToContext("./models/carpet.obj", models::carpet);
 	loadModelToContext("./models/roof.obj", models::roof);
+	loadModelToContext("./models/TOPOR.obj", models::chair);
 
 	char* textures[] = { "textures/skybox/sh_ft.png", "textures/skybox/sh_bk.png", "textures/skybox/sh_up.png", "textures/skybox/sh_dn.png", "textures/skybox/sh_rt.png", "textures/skybox/sh_lf.png" };
 	loadCubemap(textures);
@@ -883,6 +890,7 @@ void init(GLFWwindow* window)
 	texture::pillow = Core::LoadTexture("./textures/pillow.png");
 	texture::carpet = Core::LoadTexture("./textures/carpet.jpg");
 	texture::roof = Core::LoadTexture("./textures/roof2_s_d.png");
+	texture::chair = Core::LoadTexture("./textures/1.png");
 
 	normals::normal_present2 = Core::LoadTexture("./textures/lambert1_normal.png");
 	normals::normal_present3 = Core::LoadTexture("./textures/paket_ny_normal.png");
