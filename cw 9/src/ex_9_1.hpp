@@ -1,4 +1,4 @@
-﻿#include "glew.h"
+#include "glew.h"
 #include <GLFW/glfw3.h>
 #include "glm.hpp"
 #include "ext.hpp"
@@ -49,6 +49,7 @@ namespace models {
 	Core::RenderContext pillow;
 	Core::RenderContext carpet;
 	Core::RenderContext roof;
+	Core::RenderContext snowMan;
 	Core::RenderContext chair;
 }
 
@@ -67,6 +68,9 @@ namespace texture {
 	GLuint pillow;
 	GLuint carpet;
 	GLuint roof;
+	GLuint cobble;
+	GLuint snowMan;
+	GLuint doors;
 	GLuint chair;
 }
 
@@ -108,7 +112,7 @@ glm::vec3 cameraPos = glm::vec3(0.479490f, 1.250000f, -2.124680f);
 glm::vec3 cameraDir = glm::vec3(-0.354510f, 0.000000f, 0.935054f);
 
 
-glm::vec3 spaceshipPos = glm::vec3(0.065808f, 1.250000f, -2.189549f);
+glm::vec3 spaceshipPos = glm::vec3(0.065808f, 1.250000f, -4.189549f);
 glm::vec3 spaceshipDir = glm::vec3(-0.490263f, 0.000000f, 0.871578f);
 GLuint VAO, VBO;
 
@@ -680,12 +684,14 @@ void renderScene(GLFWwindow* window)
 			texture::moon, 0.3, 0.0, 0.5 - 0.1 * i, sleighLightVP);
 	}
 
+	drawObjectPBRTexture(models::doorContext, glm::mat4() * glm::scale(glm::vec3(1.f, 1.f, 1.f)), texture::doors, 0.0, 0.0f, 1.0f, sleighLightVP);
+
 	glUseProgram(program);
 
 	drawObjectPBR(models::bedContext, glm::mat4(), glm::vec3(0.03f, 0.03f, 0.03f), 1.0, 0.2f, 0.0f, sleighLightVP);
 	//drawObjectPBR(models::chairContext, glm::mat4() * glm::translate(glm::vec3(-0.1f, 0.f, -0.1f)), glm::vec3(0.195239f, 0.37728f, 0.8f), 1.0, 0.4f, 0.0f, sleighLightVP);
 	//drawObjectPBR(models::deskContext, glm::mat4(), glm::vec3(0.428691f, 0.08022f, 0.036889f), 0.2f, 0.0f);
-	drawObjectPBR(models::doorContext, glm::mat4() * glm::scale(glm::vec3(1.f, 1.f, 1.f)), glm::vec3(0.402978f, 0.120509f, 0.057729f), 1.0, 0.2f, 0.0f, sleighLightVP);
+	//drawObjectPBR(models::doorContext, glm::mat4() * glm::scale(glm::vec3(1.f, 1.f, 1.f)), glm::vec3(0.402978f, 0.120509f, 0.057729f), 1.0, 0.2f, 0.0f, sleighLightVP);
 	drawObjectPBR(models::drawerContext, glm::mat4(), glm::vec3(0.428691f, 0.08022f, 0.036889f), 1.0, 0.2f, 0.0f, sleighLightVP);
 
 	glUseProgram(programTex);
@@ -729,18 +735,22 @@ void renderScene(GLFWwindow* window)
 		* glm::rotate(glm::mat4(), glm::radians(90.f), glm::vec3(0, 0, 1)) * glm::scale(glm::vec3(0.01)), texture::carpet, 2.5f, 0.75f, 1.f, sleighLightVP);
 
 	// dach
-	drawObjectPBRTexture(models::roof, glm::mat4() * glm::translate(glm::vec3(0.f, 0.f, 0.f)) * glm::mat4() * glm::scale(glm::vec3(1.f)), texture::roof, 0.3f, 0.0f, 1.f, sleighLightVP);
+	drawObjectPBRTexture(models::roof, glm::mat4() * glm::translate(glm::vec3(0.f, 0.f, 0.f)) * glm::mat4() * glm::scale(glm::vec3(1.f)), texture::roof, 0.3f, 0.0f, 1.f, sleighLightVP);	
+	
+  // cobble
+	drawObjectPBRTexture(models::planeContext, glm::mat4() * glm::translate(glm::vec3(0.f, -0.01f, 0.f)) * glm::scale(glm::vec3(1.75f)), texture::cobble, 0.3f, 0.0f, 1.f, sleighLightVP);
 
 	// podloga
-	drawObjectPBRTexture(models::planeContext, glm::mat4() * glm::scale(glm::vec3(1.1f)), texture::tableWood, 0.3f, 0.0f, 1.f, sleighLightVP);
+	drawObjectPBRTexture(models::planeContext, glm::mat4() * glm::scale(glm::vec3(1.f)), texture::tableWood, 0.3f, 0.0f, 1.f, sleighLightVP);
 
+	// bałwanek
+	drawObjectPBRTexture(models::snowMan, glm::mat4() * glm::translate(glm::vec3(1.3f, 0.25f, -2.95f)) * 
+		glm::rotate(glm::mat4(), glm::radians(-180.f), glm::vec3(0, 1, 0))  * glm::scale(glm::vec3(0.4f)), texture::snowMan, 0.3f, 0.0f, 1.f, sleighLightVP);
 
-	//podloga
-	//drawObjectPBR(models::planeContext, glm::mat4(), glm::vec3(0.402978f, 0.120509f, 0.057729f), 0.2f, 0.0f, sleighLightVP);
 	
 	glUseProgram(program);
 	drawObjectPBR(models::materaceContext, glm::mat4(), glm::vec3(0.9f, 0.9f, 0.9f), 1.0, 0.8f, 0.0f, sleighLightVP);
-	drawObjectPBR(models::pencilsContext, glm::mat4() * glm::translate(glm::vec3(0.f, -0.1f, 0.f)), glm::vec3(0.10039f, 0.018356f, 0.001935f), 1.0, 0.1f, 0.0f, sleighLightVP);
+	// drawObjectPBR(models::pencilsContext, glm::mat4() * glm::translate(glm::vec3(0.f, -0.1f, 0.f)), glm::vec3(0.10039f, 0.018356f, 0.001935f), 1.0, 0.1f, 0.0f, sleighLightVP);
 
 	// prolly trzeba bedzie powiekszysc pokój, wiec tu zamiast skalowac 1.1f, to trzeba bedzie np. (1.5f, 1.f, 1.f)
 	//drawObjectPBR(models::planeContext, glm::mat4() * glm::scale(glm::vec3(1.1f)), glm::vec3(0.402978f, 0.120509f, 0.057729f), 0.2f, 0.0f, sleighLightVP);
@@ -853,7 +863,7 @@ void init(GLFWwindow* window)
 	loadModelToContext("./models/materace.obj", models::materaceContext);
 	loadModelToContext("./models/pencils.obj", models::pencilsContext);
 	loadModelToContext("./models/plane.obj", models::planeContext);
-	loadModelToContext("./models/room.obj", models::roomContext);
+	loadModelToContext("./models/room2.obj", models::roomContext);
 	loadModelToContext("./models/santa_sliegh.fbx", models::spaceshipContext);
 	loadModelToContext("./models/sphere.obj", models::sphereContext);
 	loadModelToContext("./models/window.obj", models::windowContext);
@@ -872,6 +882,7 @@ void init(GLFWwindow* window)
 	loadModelToContext("./models/pillow.obj", models::pillow);
 	loadModelToContext("./models/carpet.obj", models::carpet);
 	loadModelToContext("./models/roof.obj", models::roof);
+	loadModelToContext("./models/snowman.fbx", models::snowMan);
 	loadModelToContext("./models/TOPOR.obj", models::chair);
 
 	char* textures[] = { "textures/skybox/sh_ft.png", "textures/skybox/sh_bk.png", "textures/skybox/sh_up.png", "textures/skybox/sh_dn.png", "textures/skybox/sh_rt.png", "textures/skybox/sh_lf.png" };
@@ -890,6 +901,9 @@ void init(GLFWwindow* window)
 	texture::pillow = Core::LoadTexture("./textures/pillow.png");
 	texture::carpet = Core::LoadTexture("./textures/carpet.jpg");
 	texture::roof = Core::LoadTexture("./textures/roof2_s_d.png");
+	texture::cobble = Core::LoadTexture("./textures/cobble.jpg");
+	texture::snowMan = Core::LoadTexture("./textures/snowman.png");
+	texture::doors = Core::LoadTexture("./textures/doors.png");
 	texture::chair = Core::LoadTexture("./textures/1.png");
 
 	normals::normal_present2 = Core::LoadTexture("./textures/lambert1_normal.png");
