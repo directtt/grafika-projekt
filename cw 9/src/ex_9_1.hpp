@@ -54,6 +54,7 @@ namespace models {
 	Core::RenderContext cactus;
 	Core::RenderContext christmasStocking;
 	Core::RenderContext plant;
+	Core::RenderContext bedAll;
 }
 
 namespace texture {
@@ -78,6 +79,7 @@ namespace texture {
 	GLuint cactus;
 	GLuint stocking;
 	GLuint plant;
+	GLuint bed;
 }
 
 namespace normals {
@@ -694,7 +696,7 @@ void renderScene(GLFWwindow* window)
 
 	glUseProgram(program);
 
-	drawObjectPBR(models::bedContext, glm::mat4(), glm::vec3(0.03f, 0.03f, 0.03f), 1.0, 0.2f, 0.0f, sleighLightVP);
+	//drawObjectPBR(models::bedContext, glm::mat4(), glm::vec3(0.03f, 0.03f, 0.03f), 1.0, 0.2f, 0.0f, sleighLightVP);
 	//drawObjectPBR(models::chairContext, glm::mat4() * glm::translate(glm::vec3(-0.1f, 0.f, -0.1f)), glm::vec3(0.195239f, 0.37728f, 0.8f), 1.0, 0.4f, 0.0f, sleighLightVP);
 	//drawObjectPBR(models::deskContext, glm::mat4(), glm::vec3(0.428691f, 0.08022f, 0.036889f), 0.2f, 0.0f);
 	//drawObjectPBR(models::doorContext, glm::mat4() * glm::scale(glm::vec3(1.f, 1.f, 1.f)), glm::vec3(0.402978f, 0.120509f, 0.057729f), 1.0, 0.2f, 0.0f, sleighLightVP);
@@ -731,11 +733,11 @@ void renderScene(GLFWwindow* window)
 		* glm::rotate(glm::mat4(), glm::radians(75.f), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.148)), texture::chair, 0.5f, 1.f, 1.f, sleighLightVP);
 
 	// poduszka
-	drawObjectPBRTexture(models::pillow, glm::mat4() * glm::translate(glm::vec3(0.9f, 0.6f, 0.65f)) * glm::rotate(glm::mat4(), glm::radians(90.f), glm::vec3(0, 1, 0))
+	drawObjectPBRTexture(models::pillow, glm::mat4() * glm::translate(glm::vec3(0.9f, 0.5f, -0.1f)) * glm::rotate(glm::mat4(), glm::radians(90.f), glm::vec3(0, 1, 0))
 		* glm::scale(glm::vec3(0.0036)), texture::pillow, 2.5f, 0.75f, 1.f, sleighLightVP);
 
 	// dywan
-	drawObjectPBRTexture(models::carpet, glm::mat4() * glm::translate(glm::vec3(-0.2f, 0.1f, -0.25f)) * glm::rotate(glm::mat4(), glm::radians(90.f), glm::vec3(1, 0, 0))
+	drawObjectPBRTexture(models::carpet, glm::mat4() * glm::translate(glm::vec3(-0.2f, 0.02f, -0.25f)) * glm::rotate(glm::mat4(), glm::radians(90.f), glm::vec3(1, 0, 0))
 		* glm::rotate(glm::mat4(), glm::radians(90.f), glm::vec3(0, 0, 1)) * glm::scale(glm::vec3(0.01)), texture::carpet, 2.5f, 0.75f, 1.f, sleighLightVP);
 
 	// dach
@@ -760,13 +762,17 @@ void renderScene(GLFWwindow* window)
 		glm::rotate(glm::mat4(), glm::radians(-90.f), glm::vec3(1, 0, 0)) *
 		glm::rotate(glm::mat4(), glm::radians(45.f), glm::vec3(0, 0, 1)) * glm::scale(glm::vec3(0.1f)), texture::stocking, 0.3f, 0.0f, 1.f, sleighLightVP);
 
-	// deer
+	// plant
 	drawObjectPBRTexture(models::plant, glm::mat4() * glm::translate(glm::vec3(1.3f, 0.f, -1.8f)) *
 		glm::rotate(glm::mat4(), glm::radians(-90.f), glm::vec3(1, 0, 0)) * glm::scale(glm::vec3(0.015f)) , texture::plant, 0.3f, 0.0f, 1.f, sleighLightVP);
+
+	drawObjectPBRTexture(models::bedAll, glm::mat4() * glm::translate(glm::vec3(1.f, 0.f, 0.f)) *
+		glm::rotate(glm::mat4(), glm::radians(270.f), glm::vec3(1, 0, 0)) * 
+		glm::rotate(glm::mat4(), glm::radians(180.f), glm::vec3(0, 0, 1)) * glm::scale(glm::vec3(1.5f, 1.15f, 1.25f)), texture::bed, 0.3f, 0.0f, 1.f, sleighLightVP);
 	
 	
 	glUseProgram(program);
-	drawObjectPBR(models::materaceContext, glm::mat4(), glm::vec3(0.9f, 0.9f, 0.9f), 1.0, 0.8f, 0.0f, sleighLightVP);
+	//drawObjectPBR(models::materaceContext, glm::mat4(), glm::vec3(0.9f, 0.9f, 0.9f), 1.0, 0.8f, 0.0f, sleighLightVP);
 	// drawObjectPBR(models::pencilsContext, glm::mat4() * glm::translate(glm::vec3(0.f, -0.1f, 0.f)), glm::vec3(0.10039f, 0.018356f, 0.001935f), 1.0, 0.1f, 0.0f, sleighLightVP);
 
 	// prolly trzeba bedzie powiekszysc pokój, wiec tu zamiast skalowac 1.1f, to trzeba bedzie np. (1.5f, 1.f, 1.f)
@@ -904,6 +910,8 @@ void init(GLFWwindow* window)
 	loadModelToContext("./models/CatcusLowpoly.fbx", models::cactus);
 	loadModelToContext("./models/Stocking3.fbx", models::christmasStocking);
 	loadModelToContext("./models/deer.fbx", models::plant);
+	loadModelToContext("./models/bed_all.fbx", models::bedAll);
+
 
 	char* textures[] = { "textures/skybox/sh_ft.png", "textures/skybox/sh_bk.png", "textures/skybox/sh_up.png", "textures/skybox/sh_dn.png", "textures/skybox/sh_rt.png", "textures/skybox/sh_lf.png" };
 	loadCubemap(textures);
@@ -928,6 +936,7 @@ void init(GLFWwindow* window)
 	texture::cactus = Core::LoadTexture("./textures/cactus.png");
 	texture::stocking = Core::LoadTexture("./textures/Stocking_albedo.jpg");
 	texture::plant = Core::LoadTexture("./textures/a0.png");
+	texture::bed = Core::LoadTexture("./textures/bed.png");
 
 	normals::normal_present2 = Core::LoadTexture("./textures/lambert1_normal.png");
 	normals::normal_present3 = Core::LoadTexture("./textures/paket_ny_normal.png");
